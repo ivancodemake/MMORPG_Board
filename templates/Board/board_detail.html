@@ -1,0 +1,60 @@
+{% extends 'Board/index.html' %}
+
+{% block content %}
+
+<div class="container mt-3">
+    <div class="row w-100 mb-3">
+        <div class="col-sm-8 mx-auto mb-5">
+            <div class="card-header bg-light text-start">
+                <div class="row row-cols-3">
+                    <div class="col">
+                        {{ board.category.name }}
+                    </div>
+                    <div class="col">
+                        {{ board.author }}
+                    </div>
+                    <div class="col text-end">
+                        {{ board.date_of_creation }}
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ board.title }}</h5>
+<!--                    <img src="">-->
+                    <p>{{ board.content|safe }}</p>
+<!--                    <p class="card-text">{{ board.text }}</p>-->
+                </div>
+            </div>
+            <div class="card-footer bg-light text-muted">
+                <div class="row">
+                    <div class="col-6 text-start">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ commentform }}
+                            <input type="submit" value="Send">
+                        </form>
+                    </div>
+                    <hr>
+                    <div class="container">
+                        {% for el in comment %}
+                            <div class="row">
+                                <div class="col text-start col-md-auto">
+                                    {{ el.author.username }} :
+                                </div>
+                                <div class="col text-start col-md-auto">
+                                    {{ el.text }}
+                                </div>
+                                <div class="col text-end">
+                                    {{ el.date_of_creation }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends "Board/index.html" %}
+{% load account socialaccount %}
+{% block head_title %}
+Войти
+{% endblock %}
+{% block content %}
+{% get_providers as socialaccount_providers %}
+{% if socialaccount_providers %}
+
+<p class="text-black">Войдите с одного из Вашего существующего аккаунта
+  или <a href="{{ signup_url }}">зарегистрируйтесь.</a>
+для {{ site_name }} аккаунта и войдите ниже.</p>
+
+<div class="socialaccount_ballot">
+
+  <ul class="socialaccount_providers">
+    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+  </ul>
+
+  <div class="login-or">или</div>
+
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% else %}
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center">
+       <p class="text-black">Если у вас ещё нет аккаунта,
+       <a href="{{ signup_url }}">зарегистрируйтесь</a></p>
+{% endif %}
+
+
+<form class="login text-black" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Забыли пароль?</a>
+  <button class="primaryAction" type="submit">Войти</button>
+</form>
+
+{% endblock %}
+
+      </div>
+    </div>
+  </div>

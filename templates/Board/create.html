@@ -1,0 +1,25 @@
+{% extends 'Board/index.html' %}
+
+{% block content %}
+
+<div class="container text-black">
+    <br><br>
+    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+        {{ form.media }}
+        <input type="submit" value="Сохранить" >
+            </div>
+    </form>
+
+
+</div>
+    </div>
+<br><br>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends "Board/index.html" %}
+
+{% block head_title %}
+
+Регистрация
+
+{% endblock %}
+
+{% block content %}
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center">
+<h1 class="text-black">Регистрация</h1>
+<br><br><br>
+
+<p class="text-black">Уже есть свой аккаунт? Тогда <a href="{{ login_url }}">войдите.</a></p>
+
+<form class="signup text-black" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+<br><br>
+  <button type="submit">Зарегистрироваться</button>
+</form>
+
+{% endblock %}
+  </div>
+    </div>

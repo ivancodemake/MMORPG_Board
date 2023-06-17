@@ -1,0 +1,45 @@
+{% extends 'Board/index.html' %}
+
+{% block content %}
+<br><br>
+
+<div class=" d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center">
+<form method="GET" class="text-Black">
+    {% csrf_token %}
+    {{ filter.form }}
+    <input type="submit" value="Найти">
+</form>
+</div>
+
+<br><br><br><br>
+
+{% if filter.qs|length %}
+    <div class="container" >
+        {% for comment in filter.qs %}
+            <div class="row">
+                <div class="col">
+                    <p class="text-black text-start">{{ comment.author }}: {{ comment.text }}</p>
+                </div>
+                <div class="col-3 text-start">
+                    <p class="text-black">{{ comment.get_status_display }}</p>
+                </div>
+                <div class="col-2">
+                    {% if comment.status != 'response accepted' %}
+                        <a href="{% url 'accept' comment.id %}"><button type="button" class="btn btn-outline-Black me-2">Принять</button></a>
+                    {% endif %}
+                </div>
+                <div class="col-1">
+                    <a href="{% url 'delete' comment.id %}"><button type="button" class="btn btn-outline-Black me-2">Удалить</button></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center">
+    <p class="text-black">Ничего не найдено</p>
+{% endif %}
+
+{% endblock content %}
+                </div>
+            </div>
